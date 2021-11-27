@@ -1,4 +1,4 @@
-# archery-record-calculator
+# Use this simple front-only project to keep track of your score when you are shooting!
 
 ## Build Setup
 
