@@ -1,6 +1,6 @@
 <template>
   <div>
-    <RoundListItem v-for="round in rounds" :key="round" :id="round" />
+    <RoundListItem v-for="round in rounds" :id="round" :key="round" />
     <br />
     <v-row justify="center">
       <v-btn color="teal" @click="calcScore">calculate score</v-btn>
@@ -8,7 +8,7 @@
     <v-row v-if="showScore" justify="center" align="center">
       <h1 class="banner">
         You scored <span class="score">{{ score }}</span> out of
-        {{ 30 * this.$store.state.rounds }}
+        {{ 30 * $store.state.rounds }}
       </h1>
     </v-row>
     <br />

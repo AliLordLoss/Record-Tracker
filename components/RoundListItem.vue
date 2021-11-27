@@ -7,9 +7,9 @@
         <br />
         <div class="round-flex">
           <v-select
+            v-model="first"
             outlined
             :items="items"
-            v-model="first"
             :class="[
               first === 'm'
                 ? ''
@@ -25,9 +25,9 @@
             @change="scoreChanged"
           ></v-select>
           <v-select
+            v-model="second"
             outlined
             :items="items"
-            v-model="second"
             :class="[
               second === 'm'
                 ? ''
@@ -43,9 +43,9 @@
             @change="scoreChanged"
           ></v-select>
           <v-select
+            v-model="third"
             outlined
             :items="items"
-            v-model="third"
             :class="[
               third === 'm'
                 ? ''
