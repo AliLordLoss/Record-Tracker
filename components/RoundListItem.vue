@@ -1,9 +1,13 @@
 <template>
-  <div>
-    <v-row align="center">
+  <v-expand-transition>
+    <v-row
+      justify="center"
+      align="center"
+      :class="['round', `${$vuetify.theme.dark ? 'dark' : 'light'}-border`]"
+    >
       <v-spacer />
       <v-col cols="12" md="8" xl="4">
-        <h2>Round {{ id + 1 }}:</h2>
+        <h2>Round {{ id + 1 }} of {{ roundsCount }}:</h2>
         <br />
         <div class="round-flex">
           <v-select
@@ -65,10 +69,8 @@
       <v-col cols="2">
         <h1>= {{ score }}</h1>
       </v-col>
-      <v-spacer />
     </v-row>
-    <hr />
-  </div>
+  </v-expand-transition>
 </template>
 
 <script>
@@ -78,13 +80,17 @@ export default {
       required: true,
       type: Number,
     },
+    roundsCount: {
+      required: true,
+      type: Number,
+    },
   },
   data() {
     return {
       first: 0,
       second: 0,
       third: 0,
-      items: ['m', 5, 6, 7, 8, 9, 10, 'x'],
+      items: ['x', 10, 9, 8, 7, 6, 5, 'm'],
     }
   },
   computed: {
@@ -105,7 +111,23 @@ export default {
         roundId: this.id,
         score: this.score,
       })
+      if (this.first && this.second && this.third) this.$emit('done')
     },
   },
 }
 </script>
+
+<style scoped>
+.round {
+  border-style: dashed;
+  border-width: 2px;
+  border-radius: 5px;
+  margin-bottom: 25px;
+}
+.dark-border {
+  border-color: white;
+}
+.light-border {
+  border-color: black;
+}
+</style>

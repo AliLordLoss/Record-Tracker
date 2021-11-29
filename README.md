@@ -1,5 +1,10 @@
 # Use this simple front-only project to keep track of your score when you are shooting!
 
+<<<<<<< HEAD
+=======
+currently available on https://alilordloss.github.io
+
+>>>>>>> master-8a4d641
 ## Build Setup
 
 ```bash

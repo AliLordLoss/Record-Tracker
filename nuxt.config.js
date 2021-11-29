@@ -2,10 +2,13 @@ import colors from 'vuetify/es5/util/colors'
 
 export default {
   target: 'static',
+  generate: {
+    fallback: "404.html"
+  },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - archery-record-calculator',
-    title: 'archery-record-calculator',
+    titleTemplate: '',
+    title: 'Archery Record Calculator',
     htmlAttrs: {
       lang: 'en'
     },
@@ -38,10 +41,30 @@ export default {
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
+    '@nuxtjs/pwa',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    ['nuxt-twa-module', {
+      /* module options */
+      defaultUrl: 'https://alilordloss.github.io',
+      hostName: 'alilordloss.github.io',
+      applicationId: 'io.github.alilordloss',
+      launcherName: 'Archery Record Calculator',
+      versionCode: 1,
+      versionName: '1.0',
+      statusBarColor: 'blue',
+      // The sha256Fingerprints by is an array with one SHA-256 key string.
+      // But if you have multiple you can add them to the array. More information about the website asociation:
+      // https://developer.android.com/training/app-links/verify-site-associations#web-assoc
+      sha256Fingerprints: ['E3A1E2E52B56690800D2134F1F3EEEC142959BF6D1FAA52D37D6A2658179E480'],
+      /* optional */
+      /* overwrite default location for icon */
+      iconPath: '/static/icon.png',
+      /* Overwrite folder where to put .wellknown */
+      distFolder: '.nuxt/dist/client',
+    }],
   ],
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify

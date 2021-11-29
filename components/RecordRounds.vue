@@ -1,9 +1,12 @@
 <template>
   <div>
-    <RoundListItem v-for="round in rounds" :id="round" :key="round" />
-    <br />
     <v-row justify="center">
-      <v-btn color="teal" @click="calcScore">calculate score</v-btn>
+      <v-btn
+        color="info"
+        :disabled="showRounds < rounds.length"
+        @click="calcScore"
+        >calculate score</v-btn
+      >
     </v-row>
     <v-row v-if="showScore" justify="center" align="center">
       <h1 class="banner">
@@ -16,6 +19,16 @@
     <v-row justify="center">
       <v-btn color="warning" @click="getConfirm">start a new record</v-btn>
     </v-row>
+    <br />
+    <br />
+    <RoundListItem
+      v-for="round in rounds"
+      v-show="round <= showRounds"
+      :id="round"
+      :key="round"
+      :rounds-count="rounds.length"
+      @done="showRounds++"
+    />
 
     <v-dialog v-model="dialog" persistent>
       <v-card>
@@ -39,11 +52,12 @@ export default {
       showScore: false,
       score: 0,
       dialog: false,
+      showRounds: 0,
     }
   },
   computed: {
     rounds() {
-      return [...Array(this.$store.state.rounds).keys()]
+      return [...Array(this.$store.state.rounds).keys()].reverse()
     },
   },
   methods: {
