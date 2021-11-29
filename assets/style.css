@@ -1,0 +1,36 @@
+.round-flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.my-blue .v-input__slot {
+  background-color: blue !important;
+}
+.my-blue .v-select__selection {
+  color: white !important;
+}
+.my-blue .v-icon {
+  color: white !important;
+}
+.my-red .v-input__slot {
+  background-color: red !important;
+}
+.my-red .v-select__selection {
+  color: white !important;
+}
+.my-red .v-icon {
+  color: white !important;
+}
+.my-yellow .v-input__slot {
+  background-color: yellow !important;
+}
+.my-yellow .v-select__selection {
+  color: black !important;
+}
+.my-yellow .v-icon {
+  color: black !important;
+}
+.my-score {
+  margin: 0 15px 0 15px !important;
+}
