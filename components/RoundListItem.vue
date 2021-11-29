@@ -5,7 +5,6 @@
       align="center"
       :class="['round', `${$vuetify.theme.dark ? 'dark' : 'light'}-border`]"
     >
-      <v-spacer />
       <v-col cols="12" md="8" xl="4">
         <h2>Round {{ id + 1 }} of {{ roundsCount }}:</h2>
         <br />
