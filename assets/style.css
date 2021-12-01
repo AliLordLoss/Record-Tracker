@@ -31,6 +31,29 @@
 .my-yellow .v-icon {
   color: black !important;
 }
+.my-white .v-input__slot {
+  background-color: white !important;
+}
+.my-white .v-select__selection {
+  color: black !important;
+}
+.my-white .v-icon {
+  color: black !important;
+}
+.my-black .v-input__slot {
+  background-color: black !important;
+}
+.my-black .v-select__selection {
+  color: white !important;
+}
+.my-black .v-icon {
+  color: white !important;
+}
 .my-score {
   margin: 0 15px 0 15px !important;
+  border-radius: 5px 5px 0 0;
+}
+
+.my-score .v-select__selection {
+  margin-left: 5px;
 }

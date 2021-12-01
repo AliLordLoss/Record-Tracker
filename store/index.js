@@ -4,12 +4,14 @@ export const state = () => ({
     arrowsPerRound: 3,
     distance: 30,
     roundScores: new Array(12).fill(new Array(3).fill(0)),
-    faceType: 30
-  }
+    faceType: 30,
+    x: 0,
+    10: 0,
+  },
 })
 
 export const getters = {
-  score: state => state.qualy.roundScores.reduce((acc, item) => acc + item.reduce((acc2, item2) => acc2 + item2, 0), 0)
+  score: state => state.qualy.roundScores.reduce((acc, item) => acc + item.reduce((acc2, item2) => acc2 + (item2 === 'x' ? 10 : item2 === 'm' ? 0 : item2), 0), 0),
 }
 
 export const actions = {
@@ -19,6 +21,10 @@ export const actions = {
 
   setQualy({ commit }, { qualy }) {
     commit('SET_QUALY', { qualy })
+  },
+
+  setScore({ commit }, { round, arrow, score }) {
+    commit('SET_SCORE', { round, arrow, score })
   },
 }
 
@@ -36,7 +42,20 @@ export const mutations = {
   SET_QUALY(state, { qualy }) {
     state.qualy = {
       ...qualy,
-      roundScores: new Array(Number(qualy.roundsCount)).fill(new Array(Number(qualy.arrowsPerRound)).fill(0)),
+      roundScores: new Array(Number(qualy.roundsCount)).fill(null).map(() => new Array(Number(qualy.arrowsPerRound)).fill(0)),
+      x: 0,
+      10: 0,
     }
   },
+
+  SET_SCORE(state, { round, arrow, score }) {
+    if (score === 'x' || score === 10)
+      this._vm.$set(state.qualy, score, state.qualy[score] + 1)
+
+    const s = state.qualy.roundScores[round][arrow]
+    if (s === 'x' || s === 10)
+      this._vm.$set(state.qualy, s, state.qualy[s] - 1)
+
+    this._vm.$set(state.qualy.roundScores[round], arrow, score)
+  }
 }

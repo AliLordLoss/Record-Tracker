@@ -19,8 +19,8 @@ export default {
     },
 
     end() {
-      this.begin = false
       this.$store.dispatch('clearRecord')
+      this.begin = false
     },
   },
 }

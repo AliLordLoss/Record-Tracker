@@ -1,35 +1,60 @@
 <template>
   <div>
-    <v-row justify="center">
-      <v-btn
-        color="info"
-        :disabled="showRounds < rounds.length"
-        @click="calcScore"
-        >calculate score</v-btn
-      >
-    </v-row>
-    <v-row v-if="showScore" justify="center" align="center">
-      <h1 class="banner">
-        You scored <span class="score">{{ score }}</span> out of
-        {{ 30 * $store.state.rounds }}
-      </h1>
-    </v-row>
-    <br />
-    <br />
-    <v-row justify="center">
-      <v-btn color="warning" @click="getConfirm">start a new record</v-btn>
-    </v-row>
-    <br />
-    <br />
-    <RoundListItem
-      v-for="round in rounds"
-      v-show="round <= showRounds"
-      :id="round"
-      :key="round"
-      :rounds-count="roundsCount"
-      :arrows-per-round="arrowsPerRound"
-      @done="showRounds++"
+    <div v-for="(r, index) in $store.state.qualy.roundScores" :key="index">
+      <v-scroll-x-transition mode="out-in" hide-on-leave>
+        <RoundListItem v-show="round === index + 1" :id="index + 1" />
+      </v-scroll-x-transition>
+    </div>
+
+    <v-pagination
+      v-model="round"
+      :length="Number($store.state.qualy.roundsCount)"
+      circle
+      prev-icon="mdi-menu-left"
+      next-icon="mdi-menu-right"
     />
+
+    <br />
+    <hr />
+    <br />
+    <v-row justify="center">
+      <v-col cols="11">
+        <h2 class="banner">
+          Your score is
+          <span class="score">{{ $store.getters.score }}</span> out of
+          {{
+            $store.state.qualy.roundsCount *
+            $store.state.qualy.arrowsPerRound *
+            10
+          }}!
+        </h2>
+      </v-col>
+    </v-row>
+    <br />
+    <hr />
+    <br />
+    <v-row justify="center">
+      <v-col cols="11">
+        <h2 class="banner">
+          X + 10: {{ $store.state.qualy.x + $store.state.qualy[10] }}
+        </h2>
+      </v-col>
+    </v-row>
+    <br />
+    <hr />
+    <br />
+    <v-row justify="center">
+      <v-col cols="11">
+        <h2 class="banner">10: {{ $store.state.qualy[10] }}</h2>
+      </v-col>
+    </v-row>
+    <br />
+    <hr />
+    <br />
+
+    <v-row justify="center" align="center">
+      <v-btn color="info" @click="dialog = true"> back </v-btn>
+    </v-row>
 
     <v-dialog v-model="dialog" persistent>
       <v-card>
@@ -50,30 +75,17 @@
 export default {
   data() {
     return {
-      showScore: false,
-      score: 0,
+      round: 1,
       dialog: false,
-      showRounds: 0,
     }
   },
-  computed: {
-    rounds() {
-      return [...Array(this.$store.state.rounds).keys()].reverse()
-    },
-  },
   methods: {
-    calcScore() {
-      this.showScore = true
-      this.score = this.$store.getters.score
-    },
-
     getConfirm() {
       this.dialog = true
     },
 
     startAnew() {
       this.dialog = false
-      this.$store.dispatch('clearRecord')
       this.$emit('end')
     },
 
