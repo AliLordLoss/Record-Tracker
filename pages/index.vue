@@ -12,6 +12,7 @@ export default {
       begin: false,
     }
   },
+  computed: {},
   methods: {
     start() {
       this.begin = true
@@ -19,6 +20,7 @@ export default {
 
     end() {
       this.begin = false
+      this.$store.dispatch('clearRecord')
     },
   },
 }

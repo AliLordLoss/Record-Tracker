@@ -26,7 +26,8 @@
       v-show="round <= showRounds"
       :id="round"
       :key="round"
-      :rounds-count="rounds.length"
+      :rounds-count="roundsCount"
+      :arrows-per-round="arrowsPerRound"
       @done="showRounds++"
     />
 

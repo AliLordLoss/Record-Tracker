@@ -1,38 +1,42 @@
 export const state = () => ({
-  rounds: 12,
-  roundScores: new Array(12).fill(0)
+  qualy: {
+    roundsCount: 12,
+    arrowsPerRound: 3,
+    distance: 30,
+    roundScores: new Array(12).fill(new Array(3).fill(0)),
+    faceType: 30
+  }
 })
 
 export const getters = {
-  score: state => state.roundScores.reduce((acc, item) => acc + item, 0)
+  score: state => state.qualy.roundScores.reduce((acc, item) => acc + item.reduce((acc2, item2) => acc2 + item2, 0), 0)
 }
 
 export const actions = {
-  beginRecording({ commit }, { rounds }) {
-    commit('SET_ROUNDS', { rounds })
-  },
-
-  setRoundScore({ commit }, { roundId, score }) {
-    commit('SET_ROUND_SCORE', { roundId, score })
-  },
-
   clearRecord({ commit }) {
-    commit('CLEAR_STATE')
-  }
+    commit('CLEAR')
+  },
+
+  setQualy({ commit }, { qualy }) {
+    commit('SET_QUALY', { qualy })
+  },
 }
 
 export const mutations = {
-  SET_ROUNDS(state, { rounds }) {
-    state.rounds = rounds
-    state.roundScores = new Array(rounds).fill(0)
+  CLEAR(state) {
+    state.qualy = {
+      roundsCount: 12,
+      arrowsPerRound: 3,
+      distance: 30,
+      roundScores: new Array(12).fill(new Array(3).fill(0)),
+      faceType: 30
+    }
   },
 
-  SET_ROUND_SCORE(state, { roundId, score }) {
-    this._vm.$set(state.roundScores, roundId, score)
+  SET_QUALY(state, { qualy }) {
+    state.qualy = {
+      ...qualy,
+      roundScores: new Array(Number(qualy.roundsCount)).fill(new Array(Number(qualy.arrowsPerRound)).fill(0)),
+    }
   },
-
-  CLEAR_STATE(state) {
-    state.rounds = 12
-    state.roundScores = new Array(12).fill(0)
-  }
 }

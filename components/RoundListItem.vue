@@ -1,10 +1,6 @@
 <template>
   <v-expand-transition>
-    <v-row
-      justify="center"
-      align="center"
-      :class="['round', `${$vuetify.theme.dark ? 'dark' : 'light'}-border`]"
-    >
+    <v-row justify="center" align="center" class="round">
       <v-col cols="12" md="8" xl="4">
         <h2>Round {{ id + 1 }} of {{ roundsCount }}:</h2>
         <br />
@@ -122,11 +118,5 @@ export default {
   border-width: 2px;
   border-radius: 5px;
   margin-bottom: 25px;
-}
-.dark-border {
-  border-color: white;
-}
-.light-border {
-  border-color: black;
 }
 </style>

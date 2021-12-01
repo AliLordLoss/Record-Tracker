@@ -3,7 +3,7 @@
     <v-navigation-drawer v-model="drawer" right fixed app>
       <div class="theme-chooser">
         <v-icon> mdi-weather-{{ dark ? 'sunny' : 'night' }} </v-icon>
-        <v-switch v-model="dark" @click="toggleTheme"></v-switch>
+        <v-switch v-model="dark" @change="toggleTheme"></v-switch>
       </div>
     </v-navigation-drawer>
 
