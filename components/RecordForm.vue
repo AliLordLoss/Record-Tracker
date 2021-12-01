@@ -48,7 +48,7 @@
             <v-col cols="12">
               <v-slider
                 v-model="qualy.roundsCount"
-                thumb-color="blue"
+                :thumb-color="$vuetify.theme.primary"
                 thumb-label="always"
                 min="1"
                 max="30"
@@ -75,7 +75,11 @@
           </v-row>
           <v-row justify="center">
             <v-col cols="4">
-              <v-text-field v-model="qualy.arrowsPerRound"></v-text-field>
+              <v-text-field
+                ref="arrows"
+                v-model="qualy.arrowsPerRound"
+                :rules="[validateArrows]"
+              ></v-text-field>
             </v-col>
           </v-row>
         </div>
@@ -158,10 +162,21 @@ export default {
         ? 'between 1 and 70'
         : true
     },
+    validateArrows(arrows) {
+      return isNaN(arrows) || isNaN(parseFloat(arrows))
+        ? 'must be a number'
+        : arrows > 10 || arrows <= 0
+        ? 'between 1 and 10'
+        : true
+    },
     start() {
       if (this.config !== 'custom') this.qualy = this.standards[this.config]
       if (this.validateDistance(this.qualy.distance) !== true) {
         this.$vuetify.goTo(this.$refs.distance)
+        return
+      }
+      if (this.validateArrows(this.qualy.arrowsPerRound) !== true) {
+        this.$vuetify.goTo(this.$refs.arrows)
         return
       }
       this.$store.dispatch('setQualy', { qualy: this.qualy })
