@@ -6,19 +6,22 @@
         >:
         <strong style="font-size: 20px" v-for="(score, j) in round" :key="j"
           ><span
-            :class="`report-${
-              score === 'x' || score > 8
-                ? 'yellow'
-                : score > 6
-                ? 'red'
-                : score > 4
-                ? 'blue'
-                : score > 2
-                ? 'white'
-                : score > 0
-                ? 'black'
-                : 'miss'
-            }`"
+            :class="[
+              `report-${
+                score === 'x' || score > 8
+                  ? 'yellow'
+                  : score > 6
+                  ? 'red'
+                  : score > 4
+                  ? 'blue'
+                  : score > 2
+                  ? 'white'
+                  : score > 0
+                  ? 'black'
+                  : 'miss'
+              }`,
+              `report-score-${$vuetify.theme.dark ? 'dark' : 'light'}`,
+            ]"
             >{{ score }}</span
           >
         </strong>
