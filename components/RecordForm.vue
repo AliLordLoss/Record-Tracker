@@ -105,12 +105,8 @@
         </div>
       </div>
     </v-expand-transition>
-    <v-row>
-      <v-spacer />
-      <v-col>
-        <v-btn color="primary" @click="start"> let's shoot! </v-btn>
-      </v-col>
-      <v-spacer />
+    <v-row justify="center">
+      <v-btn color="primary" @click="start"> let's shoot! </v-btn>
     </v-row>
   </v-form>
 </template>
