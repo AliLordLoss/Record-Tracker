@@ -62,7 +62,6 @@ export default {
             'theme',
             JSON.stringify({ ...theme, show: true })
           )
-          console.log(this.$refs.navbar)
           this.$refs.navbar.loadTheme()
         }, 2000)
       }

@@ -64,11 +64,11 @@
   padding: 0 15px 0 15px;
 }
 .my-dark-app {
-  background-image: url('~/assets/Armin\(1\).jpeg');
+  background-image: url('~assets/Armin1.jpeg');
   background-size: cover;
 }
 .my-light-app {
-  background-image: url('~/assets/Armin\(2\).jpeg');
+  background-image: url('~assets/Armin2.jpeg');
   background-repeat: repeat;
   background-size: contain;
 }
