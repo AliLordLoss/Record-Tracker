@@ -69,8 +69,8 @@
 }
 .my-app {
   background-image: url('~static/archery-face.png');
-  background-size: contain;
-  background-position: left bottom;
+  background-size: 360px;
+  background-position: right bottom;
 }
 .my-light-app {
   background-image: url('~assets/Armin2.jpeg');
