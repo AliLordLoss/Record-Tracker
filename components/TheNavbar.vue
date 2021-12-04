@@ -12,6 +12,12 @@
           <v-radio label="green" value="green"> </v-radio>
         </v-radio-group>
       </div>
+      <div v-if="$store.state.shooting" class="theme-chooser">
+        <div style="max-width: 100px; text-align: center">
+          show scores while shooting:
+        </div>
+        <v-switch v-model="score" @change="toggleScore"></v-switch>
+      </div>
       <div v-if="$store.state.passwordFound" class="theme-chooser">
         <v-icon style="color: red">
           mdi-heart{{ show ? '' : '-broken' }}
@@ -37,6 +43,7 @@ export default {
       dark: true,
       color: 'blue',
       show: false,
+      score: true,
     }
   },
   mounted() {
@@ -77,6 +84,9 @@ export default {
       }
       this.saveTheme()
     },
+    toggleScore() {
+      this.$store.dispatch('setShowScore', { showScore: this.score })
+    },
   },
 }
 </script>
@@ -85,5 +95,6 @@ export default {
 .theme-chooser {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 </style>

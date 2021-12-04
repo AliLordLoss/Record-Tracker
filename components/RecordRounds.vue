@@ -22,64 +22,88 @@
     <br />
     <hr />
     <br />
-    <v-row
-      justify="center"
-      :style="`color: ${$vuetify.theme.themes.dark.primary}`"
-    >
-      <v-col cols="11">
-        <h2 class="banner">
-          Your score is
-          <span class="score">{{ $store.getters.score }}</span> out of
-          {{
-            $store.state.qualy.roundsCount *
-            $store.state.qualy.arrowsPerRound *
-            10
-          }}!
-        </h2>
-      </v-col>
-    </v-row>
-    <br />
-    <hr />
-    <br />
-    <v-row
-      justify="center"
-      :style="`color: ${$vuetify.theme.themes.dark.primary}`"
-    >
-      <v-col cols="11">
-        <h2 class="banner">
-          X + 10: {{ $store.state.qualy.x + $store.state.qualy[10] }}
-        </h2>
-      </v-col>
-    </v-row>
-    <br />
-    <hr />
-    <br />
-    <v-row
-      justify="center"
-      :style="`color: ${$vuetify.theme.themes.dark.primary}`"
-    >
-      <v-col cols="11">
-        <h2 class="banner">
-          X: {{ $store.state.qualy.x }}, 10: {{ $store.state.qualy[10] }}
-        </h2>
-      </v-col>
-    </v-row>
-    <br />
-    <hr />
-    <br />
+    <v-expand-transition>
+      <div v-if="$store.state.showScore">
+        <v-row
+          justify="center"
+          :style="`color: ${$vuetify.theme.themes.dark.primary}`"
+        >
+          <v-col cols="11">
+            <h2 class="banner">
+              Your score is
+              <span class="score">{{ $store.getters.score }}</span> out of
+              {{
+                $store.state.qualy.roundsCount *
+                $store.state.qualy.arrowsPerRound *
+                10
+              }}!
+            </h2>
+          </v-col>
+        </v-row>
+        <br />
+        <hr />
+        <br />
+        <v-row
+          justify="center"
+          :style="`color: ${$vuetify.theme.themes.dark.primary}`"
+        >
+          <v-col cols="11">
+            <h2 class="banner">
+              X + 10: {{ $store.state.qualy.x + $store.state.qualy[10] }}
+            </h2>
+          </v-col>
+        </v-row>
+        <br />
+        <hr />
+        <br />
+        <v-row
+          justify="center"
+          :style="`color: ${$vuetify.theme.themes.dark.primary}`"
+        >
+          <v-col cols="11">
+            <h2 class="banner">
+              X: {{ $store.state.qualy.x }}, 10: {{ $store.state.qualy[10] }}
+            </h2>
+          </v-col>
+        </v-row>
+        <br />
+        <hr />
+        <br />
+      </div>
+    </v-expand-transition>
 
-    <v-row justify="center" align="center">
-      <v-btn color="primary" @click="getConfirm"> back </v-btn>
+    <v-row justify="space-around" align="center">
+      <v-btn color="warning" @click="getQuitConfirm"> quit </v-btn>
+      <v-btn color="primary" @click="getReportConfirm"> finsih </v-btn>
     </v-row>
 
-    <v-dialog v-model="dialog" persistent>
+    <v-dialog v-model="quit" persistent>
       <v-card>
         <v-card-title> Are you sure? </v-card-title>
         <v-card-text> You will lose all your records! </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn color="red darken-1" text @click="startAnew">yes</v-btn>
-          <v-btn color="green darken-1" text @click="closeDialog">no</v-btn>
+          <v-btn color="red darken-1" text @click="startAnew"> yes </v-btn>
+          <v-btn color="green darken-1" text @click="closeQuitDialog">
+            no
+          </v-btn>
+          <v-spacer />
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="report" persistent>
+      <v-card>
+        <v-card-title> Are you sure? </v-card-title>
+        <v-card-text>
+          You can't edit your scores after you get your report!
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn color="red darken-1" text @click="getReport"> yes </v-btn>
+          <v-btn color="green darken-1" text @click="closeReportDialog">
+            no
+          </v-btn>
           <v-spacer />
         </v-card-actions>
       </v-card>
@@ -99,23 +123,37 @@ export default {
   data() {
     return {
       round: 1,
-      dialog: false,
+      quit: false,
+      report: false,
       goodJob: false,
       roundFinish: false,
     }
   },
   methods: {
-    getConfirm() {
-      this.dialog = true
+    getQuitConfirm() {
+      this.quit = true
     },
 
     startAnew() {
-      this.dialog = false
+      this.quit = false
       this.$emit('end')
     },
 
-    closeDialog() {
-      this.dialog = false
+    closeQuitDialog() {
+      this.quit = false
+    },
+
+    getReportConfirm() {
+      this.report = true
+    },
+
+    getReport() {
+      this.report = false
+      this.$emit('report')
+    },
+
+    closeReportDialog() {
+      this.report = false
     },
 
     nextRound() {

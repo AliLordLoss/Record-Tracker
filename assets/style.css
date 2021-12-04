@@ -72,3 +72,39 @@
   background-repeat: repeat;
   background-size: contain;
 }
+.report-yellow {
+  background-color: yellow;
+  color: black;
+  padding: 0 5px;
+  border: solid black 2px;
+}
+.report-red {
+  background-color: red;
+  color: white;
+  padding: 0 5px;
+  border: solid black 2px;
+}
+.report-blue {
+  background-color: blue;
+  color: white;
+  padding: 0 5px;
+  border: solid black 2px;
+}
+.report-white {
+  background-color: white;
+  color: black;
+  padding: 0 5px;
+  border: solid black 2px;
+}
+.report-black {
+  background-color: black;
+  color: white;
+  padding: 0 5px;
+  border: solid black 2px;
+}
+.report-miss {
+  background-color: grey;
+  color: black;
+  padding: 0 5px;
+  border: solid black 2px;
+}

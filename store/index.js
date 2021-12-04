@@ -8,6 +8,8 @@ export const state = () => ({
     x: 0,
     10: 0,
   },
+  showScore: true,
+  shooting: false,
 
   arminLover: false,
   passwordFound: false,
@@ -40,6 +42,14 @@ export const actions = {
 
   passwordFound({ commit }) {
     commit('PASSWORD_FOUND')
+  },
+
+  setShowScore({ commit }, { showScore }) {
+    commit('SET_SHOW_SCORE', { showScore })
+  },
+
+  setShooting({ commit }, { shooting }) {
+    commit('SET_SHOOTING', { shooting })
   },
 }
 
@@ -84,5 +94,13 @@ export const mutations = {
 
   PASSWORD_FOUND(state) {
     state.passwordFound = true
-  }
+  },
+
+  SET_SHOW_SCORE(state, { showScore }) {
+    state.showScore = showScore
+  },
+
+  SET_SHOOTING(state, { shooting }) {
+    state.shooting = shooting
+  },
 }
