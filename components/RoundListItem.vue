@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="box">
     <div>Round {{ id }} of {{ $store.state.qualy.roundsCount }}</div>
     <v-row justify="center" align="center">
       <v-col v-for="(arrow, index) in arrows" :key="index" cols="4">
@@ -50,6 +50,10 @@ export default {
         arrow: i,
         score: this.arrows[i],
       })
+
+      if (!this.arrows.includes(0)) this.$emit('done')
+
+      if (this.arrows[i] === 'x') this.$emit('good-job')
     },
   },
 }

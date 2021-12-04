@@ -2,7 +2,12 @@
   <div>
     <div v-for="(r, index) in $store.state.qualy.roundScores" :key="index">
       <v-scroll-x-transition mode="out-in" hide-on-leave>
-        <RoundListItem v-show="round === index + 1" :id="index + 1" />
+        <RoundListItem
+          v-show="round === index + 1"
+          :id="index + 1"
+          @done="nextRound"
+          @good-job="goodJob = true"
+        />
       </v-scroll-x-transition>
     </div>
 
@@ -17,7 +22,10 @@
     <br />
     <hr />
     <br />
-    <v-row justify="center">
+    <v-row
+      justify="center"
+      :style="`color: ${$vuetify.theme.themes.dark.primary}`"
+    >
       <v-col cols="11">
         <h2 class="banner">
           Your score is
@@ -33,7 +41,10 @@
     <br />
     <hr />
     <br />
-    <v-row justify="center">
+    <v-row
+      justify="center"
+      :style="`color: ${$vuetify.theme.themes.dark.primary}`"
+    >
       <v-col cols="11">
         <h2 class="banner">
           X + 10: {{ $store.state.qualy.x + $store.state.qualy[10] }}
@@ -43,9 +54,14 @@
     <br />
     <hr />
     <br />
-    <v-row justify="center">
+    <v-row
+      justify="center"
+      :style="`color: ${$vuetify.theme.themes.dark.primary}`"
+    >
       <v-col cols="11">
-        <h2 class="banner">10: {{ $store.state.qualy[10] }}</h2>
+        <h2 class="banner">
+          X: {{ $store.state.qualy.x }}, 10: {{ $store.state.qualy[10] }}
+        </h2>
       </v-col>
     </v-row>
     <br />
@@ -53,7 +69,7 @@
     <br />
 
     <v-row justify="center" align="center">
-      <v-btn color="info" @click="dialog = true"> back </v-btn>
+      <v-btn color="primary" @click="getConfirm"> back </v-btn>
     </v-row>
 
     <v-dialog v-model="dialog" persistent>
@@ -68,6 +84,13 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <v-snackbar v-model="goodJob" :timeout="5000" color="primary">
+      <h2>Good Fucking Job!</h2>
+    </v-snackbar>
+    <v-snackbar v-model="roundFinish" :timeout="5000" dir="rtl" color="primary">
+      <h2>خسته نباشی دلاور :)</h2>
+    </v-snackbar>
   </div>
 </template>
 
@@ -77,6 +100,8 @@ export default {
     return {
       round: 1,
       dialog: false,
+      goodJob: false,
+      roundFinish: false,
     }
   },
   methods: {
@@ -92,6 +117,17 @@ export default {
     closeDialog() {
       this.dialog = false
     },
+
+    nextRound() {
+      this.roundFinish = true
+      const temp =
+        this.round === Number(this.$store.state.qualy.roundsCount)
+          ? this.round
+          : this.round + 1
+      setTimeout(() => {
+        this.round = temp
+      }, 1000)
+    },
   },
 }
 </script>
@@ -99,7 +135,6 @@ export default {
 <style scoped>
 .banner {
   text-align: center;
-  color: seagreen;
 }
 .score {
   text-decoration: underline;

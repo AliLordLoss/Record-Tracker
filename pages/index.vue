@@ -12,7 +12,6 @@ export default {
       begin: false,
     }
   },
-  computed: {},
   methods: {
     start() {
       this.begin = true

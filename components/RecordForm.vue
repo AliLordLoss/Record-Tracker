@@ -108,7 +108,7 @@
     <v-row>
       <v-spacer />
       <v-col>
-        <v-btn color="success" @click="start"> let's shoot! </v-btn>
+        <v-btn color="primary" @click="start"> let's shoot! </v-btn>
       </v-col>
       <v-spacer />
     </v-row>
@@ -187,13 +187,6 @@ export default {
 </script>
 
 <style>
-.box {
-  border-style: dashed;
-  border-width: 2px;
-  border-radius: 5px;
-  margin: 15px 0 15px 0;
-  padding: 0 15px 0 15px;
-}
 .center-text {
   text-align: center;
 }

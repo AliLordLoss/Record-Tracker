@@ -12,6 +12,12 @@
           <v-radio label="green" value="green"> </v-radio>
         </v-radio-group>
       </div>
+      <div v-if="$store.state.passwordFound" class="theme-chooser">
+        <v-icon style="color: red">
+          mdi-heart{{ show ? '' : '-broken' }}
+        </v-icon>
+        <v-switch v-model="show" @change="toggleArmin"></v-switch>
+      </div>
     </v-navigation-drawer>
 
     <v-app-bar fixed app>
@@ -30,15 +36,46 @@ export default {
       drawer: false,
       dark: true,
       color: 'blue',
+      show: false,
     }
+  },
+  mounted() {
+    this.loadTheme()
   },
   methods: {
     toggleTheme() {
       this.$vuetify.theme.dark = this.dark
+      this.saveTheme()
     },
     changeColor() {
       this.$vuetify.theme.themes.dark.primary = colors[this.color].darken2
       this.$vuetify.theme.themes.light.primary = colors[this.color].darken2
+      this.saveTheme()
+    },
+    saveTheme() {
+      localStorage.setItem(
+        'theme',
+        JSON.stringify({ dark: this.dark, color: this.color, show: this.show })
+      )
+    },
+    loadTheme() {
+      const { color, dark, show } = localStorage.getItem('theme')
+        ? JSON.parse(localStorage.getItem('theme'))
+        : { dark: true, color: 'blue', show: false }
+
+      this.color = color
+      this.dark = dark
+      this.show = show
+
+      this.toggleArmin()
+    },
+    toggleArmin() {
+      if (this.show) {
+        this.$store.dispatch('showArmin')
+      } else {
+        this.$store.dispatch('hideArmin')
+      }
+      this.saveTheme()
     },
   },
 }

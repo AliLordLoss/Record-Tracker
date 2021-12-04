@@ -8,6 +8,9 @@ export const state = () => ({
     x: 0,
     10: 0,
   },
+
+  arminLover: false,
+  passwordFound: false,
 })
 
 export const getters = {
@@ -25,6 +28,18 @@ export const actions = {
 
   setScore({ commit }, { round, arrow, score }) {
     commit('SET_SCORE', { round, arrow, score })
+  },
+
+  showArmin({ commit }) {
+    commit('I_LOVE_ARMIN')
+  },
+
+  hideArmin({ commit }) {
+    commit('I_DONT_LOVE_ARMIN')
+  },
+
+  passwordFound({ commit }) {
+    commit('PASSWORD_FOUND')
   },
 }
 
@@ -57,5 +72,17 @@ export const mutations = {
       this._vm.$set(state.qualy, s, state.qualy[s] - 1)
 
     this._vm.$set(state.qualy.roundScores[round], arrow, score)
+  },
+
+  I_LOVE_ARMIN(state) {
+    state.arminLover = true
+  },
+
+  I_DONT_LOVE_ARMIN(state) {
+    state.arminLover = false
+  },
+
+  PASSWORD_FOUND(state) {
+    state.passwordFound = true
   }
 }
