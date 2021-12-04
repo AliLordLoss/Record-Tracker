@@ -5,7 +5,7 @@
       :class="
         $store.state.arminLover
           ? `my-${$vuetify.theme.dark ? 'dark' : 'light'}-app`
-          : ''
+          : 'my-app'
       "
     >
       <v-container>
