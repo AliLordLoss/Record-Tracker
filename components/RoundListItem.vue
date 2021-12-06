@@ -54,6 +54,8 @@ export default {
       if (!this.arrows.includes(0)) this.$emit('done')
 
       if (this.arrows[i] === 'x') this.$emit('good-job')
+
+      if (this.arrows[i] === 'm') this.$emit('reedy')
     },
   },
 }

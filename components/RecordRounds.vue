@@ -7,6 +7,7 @@
           :id="index + 1"
           @done="nextRound"
           @good-job="goodJob = true"
+          @reedy="reed"
         />
       </v-scroll-x-transition>
     </div>
@@ -109,6 +110,10 @@
       </v-card>
     </v-dialog>
 
+    <v-overlay v-model="hasReed" :opacity="0" persistent>
+      <img class="pishi" ref="pishi" src="pishi.png" />
+    </v-overlay>
+
     <v-snackbar v-model="goodJob" :timeout="5000" color="primary">
       <h2>Good Fucking Job!</h2>
     </v-snackbar>
@@ -127,6 +132,7 @@ export default {
       report: false,
       goodJob: false,
       roundFinish: false,
+      hasReed: false,
     }
   },
   methods: {
@@ -165,6 +171,17 @@ export default {
       setTimeout(() => {
         this.round = temp
       }, 1000)
+    },
+
+    reed() {
+      this.hasReed = true
+      setTimeout(() => {
+        this.$refs.pishi.classList.add('pishi-grow')
+      }, 0)
+      setTimeout(() => {
+        this.$refs.pishi.classList.remove('pishi-grow')
+        this.hasReed = false
+      }, 5000)
     },
   },
 }

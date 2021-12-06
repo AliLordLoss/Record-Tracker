@@ -113,3 +113,11 @@
 .report-score-light {
   border: solid white 2px;
 }
+.pishi {
+  transition: all 5s ease-in-out;
+  width: 250px;
+}
+.pishi-grow {
+  transform: rotate(-75deg) scale(7);
+  opacity: 0;
+}
