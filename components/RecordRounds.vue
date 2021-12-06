@@ -111,7 +111,7 @@
     </v-dialog>
 
     <v-overlay v-model="hasReed" :opacity="0" persistent>
-      <img class="pishi" ref="pishi" src="pishi.png" />
+      <img ref="pishi" src="pishi.png" class="pishi" />
     </v-overlay>
 
     <v-snackbar v-model="goodJob" :timeout="5000" color="primary">
@@ -175,13 +175,17 @@ export default {
 
     reed() {
       this.hasReed = true
+
       setTimeout(() => {
-        this.$refs.pishi.classList.add('pishi-grow')
+        this.$refs.pishi.onload = () => {
+          this.$refs.pishi.classList.add('pishi-grow')
+
+          setTimeout(() => {
+            this.$refs.pishi.classList.remove('pishi-grow')
+            this.hasReed = false
+          }, 5000)
+        }
       }, 0)
-      setTimeout(() => {
-        this.$refs.pishi.classList.remove('pishi-grow')
-        this.hasReed = false
-      }, 5000)
     },
   },
 }
