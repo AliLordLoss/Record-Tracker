@@ -115,7 +115,7 @@
     </v-overlay>
 
     <v-snackbar v-model="goodJob" :timeout="5000" color="primary">
-      <h2>Good Fucking Job!</h2>
+      <h2>Good Job!</h2>
     </v-snackbar>
     <v-snackbar v-model="roundFinish" :timeout="5000" dir="rtl" color="primary">
       <h2>خسته نباشی دلاور :)</h2>
@@ -133,6 +133,7 @@ export default {
       goodJob: false,
       roundFinish: false,
       hasReed: false,
+      loaded: false,
     }
   },
   methods: {
@@ -177,7 +178,17 @@ export default {
       this.hasReed = true
 
       setTimeout(() => {
-        this.$refs.pishi.onload = () => {
+        if (!this.loaded) {
+          this.$refs.pishi.onload = () => {
+            this.$refs.pishi.classList.add('pishi-grow')
+            this.loaded = true
+
+            setTimeout(() => {
+              this.$refs.pishi.classList.remove('pishi-grow')
+              this.hasReed = false
+            }, 5000)
+          }
+        } else {
           this.$refs.pishi.classList.add('pishi-grow')
 
           setTimeout(() => {
